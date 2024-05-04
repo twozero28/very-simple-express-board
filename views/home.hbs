@@ -1,0 +1,65 @@
+<h1>{{title}}</h1>
+
+<div class="grid">
+  <input
+    type="search"
+    name="search"
+    id="search"
+    value="{{search}}"
+    size="50"
+    placeholder="Enter a search term"
+  />
+  <button
+    onclick="location.href=`/?search=${document.getElementById('search').value}`"
+  >Search</button>
+</div>
+<br />
+
+<a href="/write">Write</a>
+<br />
+
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th width="50%">Title</th>
+        <th>Writer</th>
+        <th>Hits</th>
+        <th>Registration Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each posts}}
+        <tr>
+          <td><a href="/detail/{{_id}}">{{title}}</a></td>
+          <td align="center">{{writer}}</td>
+          <td align="center">{{hits}}</td>
+          <td align="center">{{dateString createdDt}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+<div>
+  {{#with paginator}}
+  <a href="/?page=1&search={{@root.search}}">&lt;&lt;</a>
+  {{#if hasPrev}}
+  <a href="/?page={{prevPage}}&search={{@root.search}}">&lt;</a>
+  {{else}}
+  <a>&lt;</a>
+  {{/if}}
+  {{#each pageList}}
+  {{#if (eq . @root.paginator.page)}}
+  <a>{{.}}</a>
+  {{else}}
+  <a href="/?page={{.}}&search={{@root.search}}">{{.}}</a>
+  {{/if}}
+  {{/each}}
+  {{#if hasNext}}
+  <a href="/?page={{nextPage}}&search={{@root.search}}">&gt;</a>
+  {{else}}
+  {{/if}}
+  <a href="/?page={{lastPage}}&search={{@root.search}}">&gt;&gt;</a>
+  {{/with}}
+</div>

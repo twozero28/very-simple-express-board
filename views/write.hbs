@@ -1,0 +1,39 @@
+<h1>[{{title}}] Post {{#if (eq mode "create")}}write{{else}}edit{{/if}}</h1>
+
+<div>
+   <form name="boardForm" method="post" {{#if (eq mode "create" )}}action="/write" {{else}}action="/modify" {{/if}}>
+
+    {{#if (eq mode "modify")}}
+    <input type="hidden" name="id" value="{{post._id}}" />
+    {{/if}}
+    <div>
+      <label>Title</label>
+      <input type="text" name="title" placeholder="Enter the title" value="{{post.title}}" />
+    </div>
+
+    <div>
+      <label>Name</label>
+      <input type="text" name="writer" placeholder="Enter your name" value="{{post.writer}}" />
+    </div>
+
+    <div>
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Enter the password" />
+    </div>
+
+    <div>
+      <label>Enter the body text</label><br />
+      <textarea
+        placeholder="Body"
+        name="content"
+        cols="50"
+        rows="10"
+      >{{post.content}}</textarea>
+    </div>
+
+    <div>
+      <button type="submit">Save</button>
+      <button type="button" onclick="location.href='/'">Cancel</button>
+    </div>
+  </form>
+</div>
